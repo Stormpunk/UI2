@@ -16,6 +16,9 @@ public class MenuHandler : MonoBehaviour
     public AudioSource audioSource;
     Resolution[] resolutions;
     public Dropdown resolutionDropdown;
+    public int points;
+    public Text pointText;
+    public GameObject mainMenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,10 @@ public class MenuHandler : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
+    }
+    private void Update()
+    {
+        pointText.text = points.ToString() + " Points";
     }
     public void LoadNext(int sceneIndex)
     {
@@ -81,5 +88,18 @@ public class MenuHandler : MonoBehaviour
     {
         Screen.fullScreen = isFullscreen;
         Debug.Log("Toggling Fullscreen");
+    }
+    public void PointsUp()
+    {
+        points++;
+    }
+    public void Save()
+    {
+        SaveSystem.SavePlayer(this);
+    }
+    public void Load()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+        points = data.points;
     }
 }
